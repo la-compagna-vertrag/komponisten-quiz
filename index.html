@@ -36,7 +36,7 @@
     }
 
     .app {
-      max-width: 780px;
+      max-width: 840px;
       margin: 30px auto;
       background: var(--card);
       border-radius: 28px;
@@ -70,42 +70,66 @@
       background: rgba(255,255,255,0.16);
       color: white;
       font-size: 0.9rem;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .center {
       text-align: center;
     }
 
-    .intro-card {
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .level-card {
       background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 22px;
-      padding: 24px;
-      margin: 24px 0;
+      border-radius: 20px;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .intro-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 22px;
+    .level-card:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.22);
     }
 
-    .mini-card {
-      background: rgba(0,0,0,0.14);
-      border-radius: 16px;
-      padding: 16px 12px;
-      text-align: center;
+    .level-card.locked {
+      opacity: 0.48;
+      cursor: default;
+    }
+
+    .level-card.locked:hover {
+      transform: none;
+      box-shadow: none;
+      background: rgba(255,255,255,0.10);
+    }
+
+    .level-card h3 {
+      margin: 8px 0 8px;
+      font-size: 1.25rem;
+    }
+
+    .level-card p {
       color: var(--muted);
-      font-size: 0.95rem;
+      line-height: 1.4;
+      margin: 0;
     }
 
-    .mini-card strong {
-      display: block;
-      color: white;
-      font-size: 1.15rem;
-      margin-bottom: 5px;
+    .best-score {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--gold);
+      font-weight: 700;
     }
 
     .top-row {
@@ -244,21 +268,18 @@
       color: var(--muted);
     }
 
-    .level-note {
-      margin-top: 24px;
-      padding: 16px;
-      background: rgba(0,0,0,0.14);
-      border-radius: 16px;
-      color: var(--muted);
+    .version {
       text-align: center;
-      line-height: 1.45;
+      opacity: 0.45;
+      font-size: 0.8rem;
+      margin-top: 24px;
     }
 
     .hidden {
       display: none;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 700px) {
       body {
         padding: 12px;
       }
@@ -273,7 +294,7 @@
         font-size: 2rem;
       }
 
-      .intro-grid {
+      .level-grid {
         grid-template-columns: 1fr;
       }
 
@@ -292,47 +313,26 @@
 <body>
   <main class="app">
     <h1>🎼 Komponisten Quiz</h1>
-    <p class="subtitle">Teste dein Wissen über die grossen Meister der Musikgeschichte.</p>
+    <p class="subtitle">Musikgeschichte, Werkkunde und ein bisschen Klassik-Nerd-Freude.</p>
 
-    <section id="startScreen">
+    <section id="levelScreen">
       <div class="center">
-        <span class="badge">Level 1</span>
-        <h2>Die grossen Klassiker</h2>
+        <span class="badge">Wissens-Challenge</span>
+        <h2>Wähle dein Level</h2>
       </div>
 
-      <div class="intro-card">
-        <p class="subtitle" style="margin-bottom:0;">
-          10 Fragen, 4 Antworten, ein bisschen Ruhm — und vielleicht ein kleiner Maestro-Moment.
-        </p>
+      <div class="level-grid" id="levelGrid"></div>
 
-        <div class="intro-grid">
-          <div class="mini-card">
-            <strong>10</strong>
-            Fragen
-          </div>
-          <div class="mini-card">
-            <strong>4</strong>
-            Antworten
-          </div>
-          <div class="mini-card">
-            <strong>1</strong>
-            richtige Lösung
-          </div>
-        </div>
-      </div>
-
-      <button class="primary-btn" onclick="startQuiz()">Level 1 starten</button>
-
-      <div class="level-note">
-        Weitere Level folgen später: Oper, Barock, Romantik, Moderne und ein richtig fieses Boss-Level.
-      </div>
+      <p class="version">Version 3.0 – Level-System</p>
     </section>
 
     <section id="quizScreen" class="hidden">
       <div class="top-row">
-        <span class="badge">Level 1</span>
+        <span class="badge" id="levelBadge">Level</span>
         <strong>Frage <span id="currentQuestion">1</span>/<span id="totalQuestions">10</span></strong>
       </div>
+
+      <h2 id="levelTitle"></h2>
 
       <div class="progress">
         <div class="progress-bar" id="progress"></div>
@@ -349,12 +349,16 @@
       <button onclick="nextQuestion()" id="nextBtn" class="primary-btn hidden">
         Nächste Frage →
       </button>
+
+      <button onclick="backToLevels()" class="secondary-btn">
+        Zur Level-Auswahl
+      </button>
     </section>
 
     <section id="resultScreen" class="hidden">
       <div class="center">
-        <span class="badge">Level 1 abgeschlossen</span>
-        <h2>Dein Ergebnis</h2>
+        <span class="badge" id="resultLevelBadge">Level abgeschlossen</span>
+        <h2 id="resultTitle">Dein Ergebnis</h2>
       </div>
 
       <div class="result-box">
@@ -362,95 +366,265 @@
         <p class="result-comment" id="comment"></p>
       </div>
 
-      <button onclick="restartQuiz()" class="primary-btn">Noch einmal spielen</button>
-      <button onclick="backToStart()" class="secondary-btn">Zurück zur Startseite</button>
+      <button onclick="restartCurrentLevel()" class="primary-btn">Dieses Level nochmals spielen</button>
+      <button onclick="backToLevels()" class="secondary-btn">Zurück zur Level-Auswahl</button>
     </section>
   </main>
 
   <script>
-    const questions = [
+    const levels = [
       {
-        question: "Wer komponierte die 'Mondscheinsonate'?",
-        image: "beethoven.jpg",
-        options: ["Mozart", "Beethoven", "Bach", "Chopin"],
-        correct: 1
+        id: 1,
+        title: "Die grossen Klassiker",
+        description: "Ein Einstieg mit den bekanntesten Namen, Werken und Bildern.",
+        active: true,
+        questions: [
+          {
+            question: "Wer komponierte die 'Mondscheinsonate'?",
+            image: "beethoven.jpg",
+            options: ["Mozart", "Beethoven", "Bach", "Chopin"],
+            correct: 1
+          },
+          {
+            question: "Welcher Komponist wurde im Laufe seines Lebens zunehmend taub?",
+            image: "beethoven.jpg",
+            options: ["Beethoven", "Brahms", "Schubert", "Vivaldi"],
+            correct: 0
+          },
+          {
+            question: "Welches Werk stammt von Antonio Vivaldi?",
+            image: "vivaldi.jpg",
+            options: ["Die Zauberflöte", "Die vier Jahreszeiten", "Eine kleine Nachtmusik", "Die Unvollendete"],
+            correct: 1
+          },
+          {
+            question: "In welcher Stadt wurde Mozart geboren?",
+            image: "mozart.jpg",
+            options: ["Wien", "Berlin", "Salzburg", "Paris"],
+            correct: 2
+          },
+          {
+            question: "Welcher Komponist ist besonders bekannt für Nocturnes, Mazurken und Polonaisen?",
+            image: "chopin.jpg",
+            options: ["Debussy", "Chopin", "Tschaikowsky", "Gershwin"],
+            correct: 1
+          },
+          {
+            question: "Wer komponierte 'Also sprach Zarathustra'?",
+            image: "rstrauss.jpg",
+            options: ["Richard Strauss", "Wagner", "Mahler", "Berlioz"],
+            correct: 0
+          },
+          {
+            question: "Wie viele Sinfonien schrieb Beethoven?",
+            image: "beethoven.jpg",
+            options: ["5", "7", "9", "11"],
+            correct: 2
+          },
+          {
+            question: "Wer gilt oft als 'Vater der Sinfonie'?",
+            image: "jhaydn.jpg",
+            options: ["Joseph Haydn", "Bach", "Händel", "Mendelssohn"],
+            correct: 0
+          },
+          {
+            question: "Welches Instrument spielte Franz Liszt virtuos?",
+            image: "liszt.jpg?v=3",
+            options: ["Geige", "Klavier", "Cello", "Flöte"],
+            correct: 1
+          },
+          {
+            question: "Wer komponierte den berühmten Hochzeitsmarsch aus 'Ein Sommernachtstraum'?",
+            image: "mendelssohn.jpg",
+            options: ["Schumann", "Mendelssohn", "Berlioz", "Saint-Saëns"],
+            correct: 1
+          }
+        ]
       },
       {
-        question: "Welcher Komponist wurde im Laufe seines Lebens zunehmend taub?",
-        image: "beethoven.jpg",
-        options: ["Beethoven", "Brahms", "Schubert", "Vivaldi"],
-        correct: 0
+        id: 2,
+        title: "Werke & Komponisten",
+        description: "Jetzt wird es etwas mehr Werkkunde: Wer schrieb welches berühmte Werk?",
+        active: true,
+        questions: [
+          {
+            question: "Wer komponierte die 'Matthäus-Passion'?",
+            image: "bach.jpg",
+            options: ["Johann Sebastian Bach", "Georg Friedrich Händel", "Heinrich Schütz", "Antonio Vivaldi"],
+            correct: 0
+          },
+          {
+            question: "Wer komponierte die Oper 'La Traviata'?",
+            image: "verdi.jpg",
+            options: ["Puccini", "Rossini", "Verdi", "Bizet"],
+            correct: 2
+          },
+          {
+            question: "Welcher Komponist schrieb 'Die Moldau'?",
+            image: "smetana.jpg",
+            options: ["Dvořák", "Smetana", "Grieg", "Sibelius"],
+            correct: 1
+          },
+          {
+            question: "Von wem stammt der berühmte 'Boléro'?",
+            image: "ravel.jpg",
+            options: ["Debussy", "Ravel", "Fauré", "Bizet"],
+            correct: 1
+          },
+          {
+            question: "Wer komponierte 'Carmina Burana'?",
+            image: "orff.jpg",
+            options: ["Carl Orff", "Benjamin Britten", "Igor Strawinsky", "Paul Hindemith"],
+            correct: 0
+          },
+          {
+            question: "Wer komponierte das Musical 'West Side Story'?",
+            image: "bernstein.jpg",
+            options: ["Leonard Bernstein", "George Gershwin", "Aaron Copland", "Kurt Weill"],
+            correct: 0
+          },
+          {
+            question: "Wer schrieb 'Ein deutsches Requiem'?",
+            image: "brahms.jpg",
+            options: ["Brahms", "Bruckner", "Mahler", "Schumann"],
+            correct: 0
+          },
+          {
+            question: "Wer komponierte 'Le Sacre du printemps'?",
+            image: "stravinsky.jpg",
+            options: ["Ravel", "Strawinsky", "Prokofjew", "Schostakowitsch"],
+            correct: 1
+          },
+          {
+            question: "Wer komponierte den Opernzyklus 'Der Ring des Nibelungen'?",
+            image: "wagner.jpg",
+            options: ["Richard Wagner", "Richard Strauss", "Giuseppe Verdi", "Giacomo Puccini"],
+            correct: 0
+          },
+          {
+            question: "Zu welchem Komponisten gehört die Schauspielmusik 'Peer Gynt'?",
+            image: "grieg.jpg",
+            options: ["Sibelius", "Grieg", "Dvořák", "Elgar"],
+            correct: 1
+          }
+        ]
       },
       {
-        question: "Welches Werk stammt von Antonio Vivaldi?",
-        image: "vivaldi.jpg",
-        options: ["Die Zauberflöte", "Die vier Jahreszeiten", "Eine kleine Nachtmusik", "Die Unvollendete"],
-        correct: 1
+        id: 3,
+        title: "Epochen & Stil",
+        description: "Barock, Klassik, Romantik, Moderne: erkennst du die Zusammenhänge?",
+        active: false,
+        questions: []
       },
       {
-        question: "In welcher Stadt wurde Mozart geboren?",
-        image: "mozart.jpg",
-        options: ["Wien", "Berlin", "Salzburg", "Paris"],
-        correct: 2
+        id: 4,
+        title: "Oper & Musiktheater",
+        description: "Von Mozart bis Puccini: Bühne frei.",
+        active: false,
+        questions: []
       },
       {
-        question: "Welcher Komponist ist besonders bekannt für Nocturnes, Mazurken und Polonaisen?",
-        image: "chopin.jpg",
-        options: ["Debussy", "Chopin", "Tschaikowsky", "Gershwin"],
-        correct: 1
+        id: 5,
+        title: "Romantik & Nationalstile",
+        description: "Chopin, Dvořák, Grieg, Sibelius und mehr.",
+        active: false,
+        questions: []
       },
       {
-        question: "Wer komponierte 'Also sprach Zarathustra'?",
-        image: "rstrauss.jpg",
-        options: ["Richard Strauss", "Wagner", "Mahler", "Berlioz"],
-        correct: 0
+        id: 6,
+        title: "Barock & Alte Musik",
+        description: "Monteverdi, Palestrina, Schütz, Lully, Corelli.",
+        active: false,
+        questions: []
       },
       {
-        question: "Wie viele Sinfonien schrieb Beethoven?",
-        image: "beethoven.jpg",
-        options: ["5", "7", "9", "11"],
-        correct: 2
+        id: 7,
+        title: "Moderne & 20. Jahrhundert",
+        description: "Debussy, Ravel, Strawinsky, Schönberg, Cage.",
+        active: false,
+        questions: []
       },
       {
-        question: "Wer gilt oft als 'Vater der Sinfonie'?",
-        image: "jhaydn.jpg",
-        options: ["Joseph Haydn", "Bach", "Händel", "Mendelssohn"],
-        correct: 0
+        id: 8,
+        title: "Kirchenmusik & Chor",
+        description: "Messe, Motette, Passion, Oratorium.",
+        active: false,
+        questions: []
       },
       {
-        question: "Welches Instrument spielte Franz Liszt virtuos?",
-        image: "liszt.jpg?v=3",
-        options: ["Geige", "Klavier", "Cello", "Flöte"],
-        correct: 1
+        id: 9,
+        title: "Formen, Gattungen, Begriffe",
+        description: "Für angehende Musikstudierende und Neugierige.",
+        active: false,
+        questions: []
       },
       {
-        question: "Wer komponierte den berühmten Hochzeitsmarsch aus 'Ein Sommernachtstraum'?",
-        image: "mendelssohn.jpg",
-        options: ["Schumann", "Mendelssohn", "Berlioz", "Saint-Saëns"],
-        correct: 1
+        id: 10,
+        title: "Boss-Level",
+        description: "Fies, aber fair. Für echte Musikgeschichte-Nerds.",
+        active: false,
+        questions: []
       }
     ];
 
+    let currentLevelIndex = 0;
     let currentQuestion = 0;
     let score = 0;
     let answered = false;
 
-    document.getElementById("totalQuestions").textContent = questions.length;
+    function renderLevelScreen() {
+      const grid = document.getElementById("levelGrid");
+      grid.innerHTML = "";
 
-    function startQuiz() {
-      document.getElementById("startScreen").classList.add("hidden");
-      document.getElementById("resultScreen").classList.add("hidden");
-      document.getElementById("quizScreen").classList.remove("hidden");
+      levels.forEach((level, index) => {
+        const card = document.createElement("div");
+        card.className = "level-card" + (level.active ? "" : " locked");
 
+        const best = localStorage.getItem("bestScoreLevel" + level.id);
+        const bestText = best ? `<div class="best-score">Beste Punktzahl: ${best}/10</div>` : "";
+
+        card.innerHTML = `
+          <div>
+            <span class="badge">Level ${level.id}</span>
+            <h3>${level.title}</h3>
+            <p>${level.description}</p>
+          </div>
+          <div>
+            ${level.active ? bestText || '<div class="best-score">Noch nicht gespielt</div>' : '<div class="best-score">Kommt bald</div>'}
+          </div>
+        `;
+
+        if (level.active) {
+          card.onclick = () => startLevel(index);
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
+    function startLevel(index) {
+      currentLevelIndex = index;
       currentQuestion = 0;
       score = 0;
       answered = false;
+
+      const level = levels[currentLevelIndex];
+
+      document.getElementById("levelScreen").classList.add("hidden");
+      document.getElementById("resultScreen").classList.add("hidden");
+      document.getElementById("quizScreen").classList.remove("hidden");
+
+      document.getElementById("levelBadge").textContent = "Level " + level.id;
+      document.getElementById("levelTitle").textContent = level.title;
+      document.getElementById("totalQuestions").textContent = level.questions.length;
 
       showQuestion();
     }
 
     function showQuestion() {
-      const q = questions[currentQuestion];
+      const level = levels[currentLevelIndex];
+      const q = level.questions[currentQuestion];
+
       answered = false;
 
       document.getElementById("questionText").textContent = q.question;
@@ -474,7 +648,7 @@
         imageError.classList.add("hidden");
       };
 
-      const progress = ((currentQuestion + 1) / questions.length) * 100;
+      const progress = ((currentQuestion + 1) / level.questions.length) * 100;
       document.getElementById("progress").style.width = progress + "%";
 
       const optionsDiv = document.getElementById("options");
@@ -495,7 +669,8 @@
 
       answered = true;
 
-      const correctIndex = questions[currentQuestion].correct;
+      const level = levels[currentLevelIndex];
+      const correctIndex = level.questions[currentQuestion].correct;
       const buttons = document.querySelectorAll(".options button");
       const feedback = document.getElementById("feedback");
 
@@ -517,9 +692,11 @@
     }
 
     function nextQuestion() {
+      const level = levels[currentLevelIndex];
+
       currentQuestion++;
 
-      if (currentQuestion < questions.length) {
+      if (currentQuestion < level.questions.length) {
         showQuestion();
       } else {
         showResult();
@@ -527,40 +704,59 @@
     }
 
     function showResult() {
+      const level = levels[currentLevelIndex];
+
       document.getElementById("quizScreen").classList.add("hidden");
       document.getElementById("resultScreen").classList.remove("hidden");
 
-      const percentage = Math.round((score / questions.length) * 100);
+      document.getElementById("resultLevelBadge").textContent = "Level " + level.id + " abgeschlossen";
+      document.getElementById("resultTitle").textContent = level.title;
 
-      document.getElementById("scoreText").textContent = score + "/" + questions.length;
+      const percentage = Math.round((score / level.questions.length) * 100);
+
+      document.getElementById("scoreText").textContent = score + "/" + level.questions.length;
+
+      const storageKey = "bestScoreLevel" + level.id;
+      const oldBest = Number(localStorage.getItem(storageKey) || 0);
+
+      if (score > oldBest) {
+        localStorage.setItem(storageKey, score);
+      }
 
       let comment = "";
 
       if (percentage === 100) {
-        comment = "Perfekt! Du bist heute eindeutig im Maestro-Modus. 🏆";
+        comment = "Perfekt! Maestro-Modus aktiviert. 🏆";
       } else if (percentage >= 80) {
-        comment = "Stark! Das ist schon richtig sattelfestes Klassik-Wissen.";
+        comment = "Stark! Das ist schon richtig sattelfestes Wissen.";
       } else if (percentage >= 60) {
-        comment = "Sehr ordentlich! Da ist musikalisch schon einiges vorhanden.";
+        comment = "Sehr ordentlich. Da ist musikalisch schon einiges vorhanden.";
       } else if (percentage >= 40) {
-        comment = "Solider Anfang. Noch ein paar Komponistenporträts anschauen, dann wird das.";
+        comment = "Solider Anfang. Noch einmal spielen lohnt sich.";
       } else {
-        comment = "Da wartet noch ein kleines Klassik-Abenteuer auf dich. Aber hey: genau dafür ist das Quiz da.";
+        comment = "Da wartet noch ein kleines Musikgeschichte-Abenteuer auf dich.";
+      }
+
+      if (score > oldBest) {
+        comment += " Neue persönliche Bestleistung!";
       }
 
       document.getElementById("comment").textContent =
         comment + " Du hast " + percentage + "% erreicht.";
     }
 
-    function restartQuiz() {
-      startQuiz();
+    function restartCurrentLevel() {
+      startLevel(currentLevelIndex);
     }
 
-    function backToStart() {
-      document.getElementById("resultScreen").classList.add("hidden");
+    function backToLevels() {
       document.getElementById("quizScreen").classList.add("hidden");
-      document.getElementById("startScreen").classList.remove("hidden");
+      document.getElementById("resultScreen").classList.add("hidden");
+      document.getElementById("levelScreen").classList.remove("hidden");
+      renderLevelScreen();
     }
+
+    renderLevelScreen();
   </script>
 </body>
 </html>
