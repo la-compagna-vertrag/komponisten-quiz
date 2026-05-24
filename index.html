@@ -5,13 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Komponisten Quiz</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #0f2b5c; color: white; margin: 0; padding: 20px; }
-    .box { max-width: 700px; margin: 40px auto; background: rgba(255,255,255,0.15); padding: 30px; border-radius: 20px; text-align: center; }
-    img { width: 320px; height: 280px; object-fit: cover; border-radius: 15px; border: 6px solid white; margin: 20px 0; }
-    button { display: block; width: 100%; padding: 15px; margin: 10px 0; font-size: 1.1rem; border-radius: 10px; background: rgba(255,255,255,0.2); color: white; border: none; }
-    button:hover { background: rgba(255,255,255,0.35); }
-    .correct { background: #4ade80 !important; color: black; }
-    .wrong { background: #f87171 !important; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f2b5c;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .box {
+      max-width: 700px;
+      margin: 40px auto;
+      background: rgba(255,255,255,0.15);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    img {
+      width: 320px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 15px;
+      border: 6px solid white;
+      margin: 20px 0;
+      background: rgba(255,255,255,0.2);
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    .correct {
+      background: #4ade80 !important;
+      color: black;
+    }
+
+    .wrong {
+      background: #f87171 !important;
+    }
   </style>
 </head>
 <body>
@@ -20,8 +65,15 @@
     <p>Wie gut kennst du die Klassik?</p>
 
     <div id="quiz">
-      <p><strong>Frage <span id="nr">1</span>/5</strong></p>
-      <img id="bild" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/800px-Beethoven.jpg">
+      <p><strong>Frage <span id="nr">1</span>/<span id="total"></span></strong></p>
+
+      <img
+        id="bild"
+        referrerpolicy="no-referrer"
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Beethoven.jpg"
+        alt="Komponist"
+      >
+
       <p id="frage" style="font-size:1.3rem; margin:20px 0;"></p>
       <div id="antworten"></div>
     </div>
@@ -31,37 +83,68 @@
 
   <script>
     const fragen = [
-      { frage: "Wer komponierte die Mondscheinsonate?", bild: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/800px-Beethoven.jpg", antworten: ["Mozart", "Beethoven", "Bach", "Chopin"], richtig: 1 },
-      { frage: "Welcher Komponist wurde taub?", bild: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/800px-Beethoven.jpg", antworten: ["Beethoven", "Mozart", "Bach", "Chopin"], richtig: 0 },
-      { frage: "Wo wurde Mozart geboren?", bild: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Wolfgang-amadeus-mozart_1.jpg/800px-Wolfgang-amadeus-mozart_1.jpg", antworten: ["Wien", "Berlin", "Salzburg", "Paris"], richtig: 2 },
-      { frage: "Welcher Komponist schrieb 'Die vier Jahreszeiten'?", bild: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Antonio_Vivaldi.jpg/800px-Antonio_Vivaldi.jpg", antworten: ["Vivaldi", "Bach", "Mozart", "Beethoven"], richtig: 0 }
+      {
+        frage: "Wer komponierte die Mondscheinsonate?",
+        bild: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Beethoven.jpg",
+        antworten: ["Mozart", "Beethoven", "Bach", "Chopin"],
+        richtig: 1
+      },
+      {
+        frage: "Welcher Komponist wurde taub?",
+        bild: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Beethoven.jpg",
+        antworten: ["Beethoven", "Mozart", "Bach", "Chopin"],
+        richtig: 0
+      },
+      {
+        frage: "Wo wurde Mozart geboren?",
+        bild: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Wolfgang-amadeus-mozart_1.jpg",
+        antworten: ["Wien", "Berlin", "Salzburg", "Paris"],
+        richtig: 2
+      },
+      {
+        frage: "Welcher Komponist schrieb 'Die vier Jahreszeiten'?",
+        bild: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Antonio_Vivaldi.jpg",
+        antworten: ["Vivaldi", "Bach", "Mozart", "Beethoven"],
+        richtig: 0
+      }
     ];
 
     let aktuell = 0;
     let punkte = 0;
 
+    document.getElementById("total").textContent = fragen.length;
+
     function zeigeFrage() {
       document.getElementById("nr").textContent = aktuell + 1;
-      document.getElementById("bild").src = fragen[aktuell].bild;
+
+      const bild = document.getElementById("bild");
+      bild.src = fragen[aktuell].bild;
+      bild.alt = "Bild zu: " + fragen[aktuell].frage;
+
       document.getElementById("frage").textContent = fragen[aktuell].frage;
 
       let html = "";
       fragen[aktuell].antworten.forEach((text, i) => {
         html += `<button onclick="check(${i})">${text}</button>`;
       });
+
       document.getElementById("antworten").innerHTML = html;
     }
 
-    function check(gewählt) {
-      if (gewählt === fragen[aktuell].richtig) punkte++;
+    function check(gewaehlt) {
+      if (gewaehlt === fragen[aktuell].richtig) {
+        punkte++;
+      }
 
       aktuell++;
+
       if (aktuell < fragen.length) {
         zeigeFrage();
       } else {
         document.getElementById("quiz").style.display = "none";
         document.getElementById("ende").style.display = "block";
-        document.getElementById("ende").innerHTML = `Fertig!<br><br>Du hast ${punkte}/${fragen.length} richtig!`;
+        document.getElementById("ende").innerHTML =
+          `Fertig!<br><br>Du hast ${punkte}/${fragen.length} richtig!`;
       }
     }
 
