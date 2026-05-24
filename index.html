@@ -13,7 +13,7 @@
       padding: 20px;
     }
     .container {
-      max-width: 700px;
+      max-width: 720px;
       margin: 40px auto;
       background: rgba(255,255,255,0.1);
       border-radius: 20px;
@@ -23,9 +23,21 @@
     h1 { text-align: center; margin-bottom: 10px; }
     .subtitle { text-align: center; opacity: 0.9; margin-bottom: 30px; }
     
+    .composer-image {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,0.3);
+      display: block;
+      margin: 15px auto;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+
     .question {
       font-size: 1.3rem;
-      margin: 25px 0;
+      margin: 20px 0;
+      text-align: center;
     }
     .options {
       display: flex;
@@ -63,10 +75,7 @@
       transition: width 0.4s;
     }
 
-    .result {
-      text-align: center;
-      font-size: 1.4rem;
-    }
+    .result { text-align: center; font-size: 1.4rem; }
     .hidden { display: none; }
   </style>
 </head>
@@ -75,17 +84,17 @@
     <h1>🎼 Komponisten Quiz</h1>
     <p class="subtitle">Wie gut kennst du die großen Meister der Klassik?</p>
 
-    <!-- Start Screen -->
     <div id="startScreen">
       <button onclick="startQuiz()" style="font-size:1.4rem; padding:20px 40px; width:100%; background:#3b82f6;">
         Quiz starten (10 Fragen)
       </button>
     </div>
 
-    <!-- Quiz Screen -->
     <div id="quizScreen" class="hidden">
       <div class="progress"><div class="progress-bar" id="progress"></div></div>
       <p><strong>Frage <span id="currentQuestion">1</span>/10</strong></p>
+      
+      <img id="composerImage" class="composer-image" src="" alt="Komponist">
       
       <div class="question" id="questionText"></div>
       <div class="options" id="options"></div>
@@ -93,7 +102,6 @@
       <button onclick="nextQuestion()" id="nextBtn" class="hidden" style="margin-top:20px;">Nächste Frage →</button>
     </div>
 
-    <!-- Result Screen -->
     <div id="resultScreen" class="hidden">
       <h2>Dein Ergebnis</h2>
       <div class="result" id="scoreText"></div>
@@ -105,68 +113,22 @@
     </div>
   </div>
 
-  <!-- Google AdSense Platzhalter (später ersetzen) -->
-  <div style="text-align:center; margin:30px 0; opacity:0.7;">
-    Hier kommt später dein Google AdSense Banner
-  </div>
-
   <script>
     const questions = [
-      {
-        question: "Wer komponierte die 'Mondscheinsonate'?",
-        options: ["Wolfgang Amadeus Mozart", "Ludwig van Beethoven", "Johann Sebastian Bach", "Frédéric Chopin"],
-        correct: 1
-      },
-      {
-        question: "Welcher Komponist wurde taub und komponierte trotzdem weiter?",
-        options: ["Ludwig van Beethoven", "Johannes Brahms", "Franz Schubert", "Antonio Vivaldi"],
-        correct: 0
-      },
-      {
-        question: "Welches Werk stammt von Antonio Vivaldi?",
-        options: ["Die Zauberflöte", "Die vier Jahreszeiten", "Eine kleine Nachtmusik", "Die Unvollendete"],
-        correct: 1
-      },
-      {
-        question: "In welcher Stadt wurde Wolfgang Amadeus Mozart geboren?",
-        options: ["Wien", "Berlin", "Salzburg", "Paris"],
-        correct: 2
-      },
-      {
-        question: "Welcher Komponist ist bekannt für seine Polonaisen und Walzer?",
-        options: ["Claude Debussy", "Frédéric Chopin", "Pyotr Tschaikowski", "George Gershwin"],
-        correct: 1
-      },
-      {
-        question: "Wer komponierte 'Also sprach Zarathustra'?",
-        options: ["Richard Strauss", "Richard Wagner", "Gustav Mahler", "Hector Berlioz"],
-        correct: 0
-      },
-      {
-        question: "Wie viele Sinfonien schrieb Ludwig van Beethoven?",
-        options: ["5", "7", "9", "11"],
-        correct: 2
-      },
-      {
-        question: "Welcher Komponist gilt als 'Vater der Sinfonie'?",
-        options: ["Joseph Haydn", "Johann Sebastian Bach", "Georg Friedrich Händel", "Felix Mendelssohn"],
-        correct: 0
-      },
-      {
-        question: "Welches Instrument spielte Franz Liszt virtuos?",
-        options: ["Geige", "Klavier", "Cello", "Flöte"],
-        correct: 1
-      },
-      {
-        question: "Wer komponierte den Hochzeitsmarsch aus 'Ein Sommernachtstraum'?",
-        options: ["Robert Schumann", "Felix Mendelssohn Bartholdy", "Hector Berlioz", "Camille Saint-Saëns"],
-        correct: 1
-      }
+      { question: "Wer komponierte die 'Mondscheinsonate'?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/800px-Beethoven.jpg", options: ["Wolfgang Amadeus Mozart", "Ludwig van Beethoven", "Johann Sebastian Bach", "Frédéric Chopin"], correct: 1 },
+      { question: "Welcher Komponist wurde taub und komponierte trotzdem weiter?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/800px-Beethoven.jpg", options: ["Ludwig van Beethoven", "Johannes Brahms", "Franz Schubert", "Antonio Vivaldi"], correct: 0 },
+      { question: "Welches Werk stammt von Antonio Vivaldi?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Antonio_Vivaldi.jpg/800px-Antonio_Vivaldi.jpg", options: ["Die Zauberflöte", "Die vier Jahreszeiten", "Eine kleine Nachtmusik", "Die Unvollendete"], correct: 1 },
+      { question: "In welcher Stadt wurde Wolfgang Amadeus Mozart geboren?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Wolfgang-amadeus-mozart_1.jpg/800px-Wolfgang-amadeus-mozart_1.jpg", options: ["Wien", "Berlin", "Salzburg", "Paris"], correct: 2 },
+      { question: "Welcher Komponist ist bekannt für seine Polonaisen und Walzer?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Frederic_Chopin_photo.jpeg/800px-Frederic_Chopin_photo.jpeg", options: ["Claude Debussy", "Frédéric Chopin", "Pyotr Tschaikowski", "George Gershwin"], correct: 1 },
+      { question: "Wer komponierte 'Also sprach Zarathustra'?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Richard_Strauss.jpg/800px-Richard_Strauss.jpg", options: ["Richard Strauss", "Richard Wagner", "Gustav Mahler", "Hector Berlioz"], correct: 0 },
+      { question: "Wie viele Sinfonien schrieb Ludwig van Beethoven?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/800px-Beethoven.jpg", options: ["5", "7", "9", "11"], correct: 2 },
+      { question: "Welcher Komponist gilt als 'Vater der Sinfonie'?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Joseph_Haydn.jpg/800px-Joseph_Haydn.jpg", options: ["Joseph Haydn", "Johann Sebastian Bach", "Georg Friedrich Händel", "Felix Mendelssohn"], correct: 0 },
+      { question: "Welches Instrument spielte Franz Liszt virtuos?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Franz_Liszt.jpg/800px-Franz_Liszt.jpg", options: ["Geige", "Klavier", "Cello", "Flöte"], correct: 1 },
+      { question: "Wer komponierte den Hochzeitsmarsch aus 'Ein Sommernachtstraum'?", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Wolfgang-amadeus-mozart_1.jpg/800px-Wolfgang-amadeus-mozart_1.jpg", options: ["Robert Schumann", "Felix Mendelssohn Bartholdy", "Hector Berlioz", "Camille Saint-Saëns"], correct: 1 }
     ];
 
     let currentQuestion = 0;
     let score = 0;
-    let selectedAnswer = null;
 
     function startQuiz() {
       document.getElementById('startScreen').classList.add('hidden');
@@ -178,10 +140,11 @@
 
     function showQuestion() {
       const q = questions[currentQuestion];
-      document.getElementById('questionText').innerHTML = q.question;
+      document.getElementById('questionText').textContent = q.question;
       document.getElementById('currentQuestion').textContent = currentQuestion + 1;
-      
-      const progress = (currentQuestion / questions.length) * 100;
+      document.getElementById('composerImage').src = q.image;
+
+      const progress = ((currentQuestion) / questions.length) * 100;
       document.getElementById('progress').style.width = progress + '%';
 
       const optionsDiv = document.getElementById('options');
@@ -199,12 +162,9 @@
 
     function selectAnswer(index, button) {
       const correctIndex = questions[currentQuestion].correct;
-      
-      // Alle Buttons deaktivieren
       const buttons = document.querySelectorAll('.options button');
       buttons.forEach(btn => btn.disabled = true);
       
-      // Richtige und falsche Antworten markieren
       if (index === correctIndex) {
         button.classList.add('correct');
         score++;
@@ -212,7 +172,6 @@
         button.classList.add('wrong');
         buttons[correctIndex].classList.add('correct');
       }
-
       document.getElementById('nextBtn').classList.remove('hidden');
     }
 
@@ -230,12 +189,10 @@
       document.getElementById('resultScreen').classList.remove('hidden');
 
       const percentage = Math.round((score / questions.length) * 100);
-      
-      let comment = "";
-      if (percentage >= 90) comment = "🎉 Du bist ein echter Klassik-Experte!";
-      else if (percentage >= 70) comment = "Sehr gut! Du kennst dich richtig aus.";
-      else if (percentage >= 50) comment = "Nicht schlecht! Etwas Übung würde helfen.";
-      else comment = "Du hast noch Potenzial! Mehr Klassik hören empfohlen 😊";
+      let comment = percentage >= 90 ? "🎉 Du bist ein echter Klassik-Experte!" :
+                    percentage >= 70 ? "Sehr gut! Du kennst dich richtig aus." :
+                    percentage >= 50 ? "Nicht schlecht! Etwas Übung würde helfen." :
+                    "Du hast noch Potenzial! Mehr Klassik hören empfohlen 😊";
 
       document.getElementById('scoreText').innerHTML = `Du hast <strong>${score}/${questions.length}</strong> richtig! (${percentage}%)`;
       document.getElementById('comment').textContent = comment;
