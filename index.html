@@ -247,6 +247,17 @@
       font-weight: 650;
     }
 
+    .explanation {
+      margin-top: 12px;
+      padding: 14px 16px;
+      background: rgba(0,0,0,0.18);
+      border-radius: 14px;
+      color: rgba(255,255,255,0.88);
+      font-size: 1rem;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
     .result-box {
       background: rgba(255,255,255,0.10);
       border-radius: 22px;
@@ -323,7 +334,7 @@
 
       <div class="level-grid" id="levelGrid"></div>
 
-      <p class="version">Version 3.1 – zufällige Fragenreihenfolge</p>
+      <p class="version">Version 3.2 – Erklärtexte</p>
     </section>
 
     <section id="quizScreen" class="hidden">
@@ -383,61 +394,71 @@
             question: "Wer komponierte die 'Mondscheinsonate'?",
             image: "beethoven.jpg",
             options: ["Mozart", "Beethoven", "Bach", "Chopin"],
-            correct: 1
+            correct: 1,
+            explanation: "Die sogenannte Mondscheinsonate ist Beethovens Klaviersonate Nr. 14 cis-Moll op. 27 Nr. 2. Der berühmte Beiname stammt nicht von Beethoven selbst."
           },
           {
             question: "Welcher Komponist wurde im Laufe seines Lebens zunehmend taub?",
             image: "beethoven.jpg",
             options: ["Beethoven", "Brahms", "Schubert", "Vivaldi"],
-            correct: 0
+            correct: 0,
+            explanation: "Beethoven verlor ab etwa seinem späten 20er-Lebensalter zunehmend sein Gehör. Trotzdem komponierte er später einige seiner bedeutendsten Werke."
           },
           {
             question: "Welches Werk stammt von Antonio Vivaldi?",
             image: "vivaldi.jpg",
             options: ["Die Zauberflöte", "Die vier Jahreszeiten", "Eine kleine Nachtmusik", "Die Unvollendete"],
-            correct: 1
+            correct: 1,
+            explanation: "Die vier Jahreszeiten sind vier Violinkonzerte von Vivaldi. Sie gehören zu den bekanntesten Programmmusik-Werken des Barock."
           },
           {
             question: "In welcher Stadt wurde Mozart geboren?",
             image: "mozart.jpg",
             options: ["Wien", "Berlin", "Salzburg", "Paris"],
-            correct: 2
+            correct: 2,
+            explanation: "Mozart wurde 1756 in Salzburg geboren. Wien wurde später einer seiner wichtigsten Wirkungsorte."
           },
           {
             question: "Welcher Komponist ist besonders bekannt für Nocturnes, Mazurken und Polonaisen?",
             image: "chopin.jpg",
             options: ["Debussy", "Chopin", "Tschaikowsky", "Gershwin"],
-            correct: 1
+            correct: 1,
+            explanation: "Chopin schrieb fast ausschliesslich für Klavier. Nocturnes, Mazurken, Polonaisen und Etüden gehören zu seinen zentralen Gattungen."
           },
           {
             question: "Wer komponierte 'Also sprach Zarathustra'?",
             image: "rstrauss.jpg",
             options: ["Richard Strauss", "Wagner", "Mahler", "Berlioz"],
-            correct: 0
+            correct: 0,
+            explanation: "Also sprach Zarathustra ist eine sinfonische Dichtung von Richard Strauss. Der Anfang ist besonders durch den Film 2001: A Space Odyssey berühmt geworden."
           },
           {
             question: "Wie viele Sinfonien schrieb Beethoven?",
             image: "beethoven.jpg",
             options: ["5", "7", "9", "11"],
-            correct: 2
+            correct: 2,
+            explanation: "Beethoven schrieb neun Sinfonien. Die Neunte mit Chorfinale wurde zu einem Schlüsselwerk der Musikgeschichte."
           },
           {
             question: "Wer gilt oft als 'Vater der Sinfonie'?",
             image: "jhaydn.jpg",
             options: ["Joseph Haydn", "Bach", "Händel", "Mendelssohn"],
-            correct: 0
+            correct: 0,
+            explanation: "Joseph Haydn prägte die klassische Sinfonie entscheidend. Er schrieb über hundert Sinfonien und entwickelte die Gattung enorm weiter."
           },
           {
             question: "Welches Instrument spielte Franz Liszt virtuos?",
             image: "liszt.jpg?v=3",
             options: ["Geige", "Klavier", "Cello", "Flöte"],
-            correct: 1
+            correct: 1,
+            explanation: "Liszt war einer der berühmtesten Klaviervirtuosen des 19. Jahrhunderts. Seine Werke erweiterten die technischen Möglichkeiten des Klaviers enorm."
           },
           {
             question: "Wer komponierte den berühmten Hochzeitsmarsch aus 'Ein Sommernachtstraum'?",
             image: "mendelssohn.jpg",
             options: ["Schumann", "Mendelssohn", "Berlioz", "Saint-Saëns"],
-            correct: 1
+            correct: 1,
+            explanation: "Der bekannte Hochzeitsmarsch stammt von Felix Mendelssohn Bartholdy aus seiner Musik zu Shakespeares Ein Sommernachtstraum."
           }
         ]
       },
@@ -451,61 +472,71 @@
             question: "Wer komponierte die 'Matthäus-Passion'?",
             image: "bach.jpg",
             options: ["Johann Sebastian Bach", "Georg Friedrich Händel", "Heinrich Schütz", "Antonio Vivaldi"],
-            correct: 0
+            correct: 0,
+            explanation: "Die Matthäus-Passion ist eines der grössten geistlichen Werke Johann Sebastian Bachs und ein Höhepunkt protestantischer Passionsmusik."
           },
           {
             question: "Wer komponierte die Oper 'La Traviata'?",
             image: "verdi.jpg",
             options: ["Puccini", "Rossini", "Verdi", "Bizet"],
-            correct: 2
+            correct: 2,
+            explanation: "La Traviata ist eine Oper von Giuseppe Verdi. Sie gehört zusammen mit Rigoletto und Il trovatore zu seinen populärsten Opern."
           },
           {
             question: "Welcher Komponist schrieb 'Die Moldau'?",
             image: "smetana.jpg",
             options: ["Dvořák", "Smetana", "Grieg", "Sibelius"],
-            correct: 1
+            correct: 1,
+            explanation: "Die Moldau stammt von Bedřich Smetana und ist Teil des Zyklus Mein Vaterland. Das Werk beschreibt musikalisch den Lauf des Flusses Moldau."
           },
           {
             question: "Von wem stammt der berühmte 'Boléro'?",
             image: "ravel.jpg",
             options: ["Debussy", "Ravel", "Fauré", "Bizet"],
-            correct: 1
+            correct: 1,
+            explanation: "Der Boléro von Maurice Ravel basiert auf einer fast hypnotischen Wiederholung eines rhythmischen und melodischen Modells mit wachsender Orchestrierung."
           },
           {
             question: "Wer komponierte 'Carmina Burana'?",
             image: "orff.jpg",
             options: ["Carl Orff", "Benjamin Britten", "Igor Strawinsky", "Paul Hindemith"],
-            correct: 0
+            correct: 0,
+            explanation: "Carmina Burana ist ein szenisches Chorwerk von Carl Orff. Besonders der Satz O Fortuna wurde weltberühmt."
           },
           {
             question: "Wer komponierte das Musical 'West Side Story'?",
             image: "bernstein.jpg",
             options: ["Leonard Bernstein", "George Gershwin", "Aaron Copland", "Kurt Weill"],
-            correct: 0
+            correct: 0,
+            explanation: "West Side Story stammt von Leonard Bernstein. Das Werk verbindet Musical, Opernähe, Jazz, lateinamerikanische Rhythmen und sinfonische Klangsprache."
           },
           {
             question: "Wer schrieb 'Ein deutsches Requiem'?",
             image: "brahms.jpg",
             options: ["Brahms", "Bruckner", "Mahler", "Schumann"],
-            correct: 0
+            correct: 0,
+            explanation: "Ein deutsches Requiem ist ein grosses Chor- und Orchesterwerk von Johannes Brahms. Der Text basiert auf deutschsprachigen Bibelstellen."
           },
           {
             question: "Wer komponierte 'Le Sacre du printemps'?",
             image: "stravinsky.jpg",
             options: ["Ravel", "Strawinsky", "Prokofjew", "Schostakowitsch"],
-            correct: 1
+            correct: 1,
+            explanation: "Le Sacre du printemps von Igor Strawinsky löste 1913 in Paris einen legendären Skandal aus und wurde zu einem Schlüsselwerk der musikalischen Moderne."
           },
           {
             question: "Wer komponierte den Opernzyklus 'Der Ring des Nibelungen'?",
             image: "wagner.jpg",
             options: ["Richard Wagner", "Richard Strauss", "Giuseppe Verdi", "Giacomo Puccini"],
-            correct: 0
+            correct: 0,
+            explanation: "Der Ring des Nibelungen ist ein vierteiliger Opernzyklus von Richard Wagner. Er besteht aus Rheingold, Walküre, Siegfried und Götterdämmerung."
           },
           {
             question: "Zu welchem Komponisten gehört die Schauspielmusik 'Peer Gynt'?",
             image: "grieg.jpg",
             options: ["Sibelius", "Grieg", "Dvořák", "Elgar"],
-            correct: 1
+            correct: 1,
+            explanation: "Peer Gynt ist Schauspielmusik von Edvard Grieg zu einem Drama von Henrik Ibsen. Morgenstimmung und In der Halle des Bergkönigs sind besonders bekannt."
           }
         ]
       },
@@ -519,61 +550,71 @@
             question: "Johann Sebastian Bach gehört hauptsächlich zu welcher Epoche?",
             image: "bach.jpg",
             options: ["Renaissance", "Barock", "Klassik", "Romantik"],
-            correct: 1
+            correct: 1,
+            explanation: "Bach ist einer der zentralen Komponisten des Barock. Seine Musik verbindet kontrapunktische Kunst, Generalbassdenken und starke geistliche Tradition."
           },
           {
             question: "Wolfgang Amadeus Mozart ist ein zentraler Komponist welcher Epoche?",
             image: "mozart.jpg",
             options: ["Barock", "Wiener Klassik", "Impressionismus", "Moderne"],
-            correct: 1
+            correct: 1,
+            explanation: "Mozart gehört zusammen mit Haydn und Beethoven zur Wiener Klassik. Klarheit, Balance und formale Eleganz sind wichtige Merkmale."
           },
           {
             question: "Frédéric Chopin wird vor allem welcher Epoche zugeordnet?",
             image: "chopin.jpg",
             options: ["Renaissance", "Barock", "Romantik", "Avantgarde"],
-            correct: 2
+            correct: 2,
+            explanation: "Chopin ist ein zentraler Komponist der Romantik. Seine Musik verbindet Virtuosität, poetischen Ausdruck und eine stark persönliche Klangsprache."
           },
           {
             question: "Claude Debussy wird besonders mit welcher Stilrichtung verbunden?",
             image: "debussy.jpg",
             options: ["Impressionismus", "Wiener Klassik", "Renaissance", "Minimal Music"],
-            correct: 0
+            correct: 0,
+            explanation: "Debussy wird oft mit dem musikalischen Impressionismus verbunden. Charakteristisch sind schwebende Harmonien, Klangfarben und freiere Formverläufe."
           },
           {
             question: "Arnold Schönberg ist eng verbunden mit welcher musikalischen Entwicklung?",
             image: "schoenberg.jpg",
             options: ["Generalbass", "Sonatenhauptsatzform", "Zwölftontechnik", "Gregorianik"],
-            correct: 2
+            correct: 2,
+            explanation: "Schönberg entwickelte die Zwölftontechnik. Sie wurde zu einer zentralen Kompositionstechnik der musikalischen Moderne."
           },
           {
             question: "Giovanni Pierluigi da Palestrina steht besonders für welche Epoche?",
             image: "palestrina.jpg",
             options: ["Renaissance", "Romantik", "Expressionismus", "Klassik"],
-            correct: 0
+            correct: 0,
+            explanation: "Palestrina gilt als einer der wichtigsten Vertreter der Vokalpolyphonie der Renaissance. Sein Name steht oft für klare, ausgewogene Kirchenmusik."
           },
           {
             question: "Claudio Monteverdi steht musikgeschichtlich besonders an der Schwelle zwischen ...",
             image: "monteverdi.jpg",
             options: ["Mittelalter und Renaissance", "Renaissance und Barock", "Klassik und Romantik", "Romantik und Moderne"],
-            correct: 1
+            correct: 1,
+            explanation: "Monteverdi steht am Übergang von Renaissance zu Barock. Er ist besonders wichtig für die frühe Oper und den neuen expressiven Stil um 1600."
           },
           {
             question: "Igor Strawinsky gehört vor allem zur Musik welcher Zeit?",
             image: "stravinsky.jpg",
             options: ["Barock", "Wiener Klassik", "20. Jahrhundert / Moderne", "Renaissance"],
-            correct: 2
+            correct: 2,
+            explanation: "Strawinsky ist eine Schlüsselfigur der Musik des 20. Jahrhunderts. Seine Werke reichen vom russischen Ballettstil über Neoklassizismus bis zur seriellen Phase."
           },
           {
             question: "Joseph Haydn gilt als wichtiger Vertreter welcher Epoche?",
             image: "jhaydn.jpg",
             options: ["Wiener Klassik", "Impressionismus", "Spätromantik", "Renaissance"],
-            correct: 0
+            correct: 0,
+            explanation: "Haydn ist einer der Hauptvertreter der Wiener Klassik. Er prägte Sinfonie, Streichquartett und Sonatenform entscheidend."
           },
           {
             question: "John Cage wird besonders mit welcher Richtung verbunden?",
             image: "cage.jpg",
             options: ["Kirchenmusik der Renaissance", "Experimentelle Musik / Avantgarde", "Frühbarocke Oper", "Wiener Klassik"],
-            correct: 1
+            correct: 1,
+            explanation: "John Cage steht für experimentelle Musik und Avantgarde. Er arbeitete mit Zufall, Stille, Geräuschen und erweiterten Vorstellungen von Musik."
           }
         ]
       },
@@ -705,7 +746,7 @@
 
       document.getElementById("questionText").textContent = q.question;
       document.getElementById("currentQuestion").textContent = currentQuestion + 1;
-      document.getElementById("feedback").textContent = "";
+      document.getElementById("feedback").innerHTML = "";
 
       const imageError = document.getElementById("imageError");
       imageError.classList.add("hidden");
@@ -757,11 +798,17 @@
       if (index === correctIndex) {
         button.classList.add("correct");
         score++;
-        feedback.textContent = "Richtig! Sehr schön. 🎉";
+        feedback.innerHTML = `
+          <div>Richtig! Sehr schön. 🎉</div>
+          <div class="explanation">${q.explanation}</div>
+        `;
       } else {
         button.classList.add("wrong");
         buttons[correctIndex].classList.add("correct");
-        feedback.textContent = "Fast — die grüne Antwort wäre richtig gewesen.";
+        feedback.innerHTML = `
+          <div>Fast — die grüne Antwort wäre richtig gewesen.</div>
+          <div class="explanation">${q.explanation}</div>
+        `;
       }
 
       document.getElementById("nextBtn").classList.remove("hidden");
