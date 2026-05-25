@@ -1111,27 +1111,27 @@
     }
 
     function backToLevels() {
-  document.getElementById("quizScreen").classList.add("hidden");
-  document.getElementById("resultScreen").classList.add("hidden");
-  document.getElementById("levelScreen").classList.remove("hidden");
-  renderLevelScreen();
-}
+      document.getElementById("quizScreen").classList.add("hidden");
+      document.getElementById("resultScreen").classList.add("hidden");
+      document.getElementById("levelScreen").classList.remove("hidden");
+      renderLevelScreen();
+    }
 
-function resetBestScores() {
-  const confirmed = confirm("Möchtest du wirklich alle gespeicherten Bestnoten zurücksetzen?");
+    function resetBestScores() {
+      const confirmed = confirm("Möchtest du wirklich alle gespeicherten Bestnoten zurücksetzen?");
 
-  if (!confirmed) {
-    return;
-  }
+      if (!confirmed) {
+        return;
+      }
 
-  levels.forEach(level => {
-    localStorage.removeItem("bestScoreLevel" + level.id);
-  });
+      levels.forEach(level => {
+        localStorage.removeItem("bestScoreLevel" + level.id);
+      });
 
-  renderLevelScreen();
-    </script>
+      renderLevelScreen();
+    }
+
+    renderLevelScreen();
+  </script>
 </body>
 </html>
-}
-
-renderLevelScreen();
