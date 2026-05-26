@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maestro Quiz</title>
+  <title>Maestro Quiz – Musikgeschichte spielerisch lernen</title>
+  <meta name="description" content="Maestro Quiz ist ein spielerischer Musikgeschichte-Trainer mit 10 Leveln, 100 Fragen und kurzen Erklärungen zu Klassik, Oper, Kirchenmusik, Formenlehre und Werkkunde.">
+  <meta name="theme-color" content="#102a5c">
+  <meta property="og:title" content="Maestro Quiz – Musikgeschichte spielerisch lernen">
+  <meta property="og:description" content="10 Level · 100 Fragen · kurze Erklärungen nach jeder Antwort. Ein spielerischer Lerntrainer für Klassikfans, Chorsänger:innen, Schüler:innen und angehende Musikstudierende.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Maestro Quiz – Musikgeschichte spielerisch lernen">
+  <meta name="twitter:description" content="10 Level · 100 Fragen · Musikgeschichte, Werke, Komponisten und Gattungen spielerisch trainieren.">
 
   <style>
     :root {
@@ -534,6 +542,34 @@
       text-align: center;
     }
 
+
+    .beta-note {
+      background: rgba(96,165,250,0.12);
+      border: 1px solid rgba(96,165,250,0.22);
+      color: rgba(255,255,255,0.88);
+      border-radius: 16px;
+      padding: 13px 15px;
+      margin: 14px 0 10px;
+      font-size: 0.94rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .beta-note strong {
+      color: var(--gold);
+    }
+
+    .project-footer {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.10);
+      color: rgba(255,255,255,0.70);
+      font-size: 0.84rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+
     .version {
       text-align: center;
       opacity: 0.45;
@@ -858,9 +894,11 @@
 
       .intro-card,
       .support-note,
+      .beta-note,
       .about-card,
       .preview-card,
-      .result-box {
+      .result-box,
+      .project-footer {
         padding: 13px;
         border-radius: 16px;
       }
@@ -886,7 +924,9 @@
         line-height: 1.3;
       }
 
-      .support-note {
+      .support-note,
+      .beta-note,
+      .project-footer {
         font-size: 0.82rem;
         line-height: 1.35;
       }
@@ -994,6 +1034,10 @@
         Kostenlose Basisversion mit 100 Fragen. Eine erweiterte Lernversion mit 500+ Fragen, Prüfungsmodus und Lernstatistik ist geplant.
       </div>
 
+      <div class="beta-note">
+        <strong>Public Beta:</strong> Diese Basisversion ist spielbar und darf gerne getestet werden. Feedback zu Fragen, Schwierigkeitsgrad, Darstellung und Lernwert ist willkommen.
+      </div>
+
      <div class="level-grid" id="levelGrid"></div>
 
       <div class="about-card">
@@ -1018,7 +1062,7 @@
           </div>
         </div>
         <div class="about-small">
-          Kostenlose Basisversion · 100 Fragen · ideal zum Wiederholen, Ausprobieren und Weiterentwickeln.
+          Kostenlose Basisversion · 100 Fragen · ideal zum Wiederholen, Ausprobieren und als Grundlage für eine erweiterte Lernversion.
         </div>
       </div>
 
@@ -1026,7 +1070,11 @@
   Bestnoten zurücksetzen
 </button>
 
-<p class="version">Version 1.6.2 – Mobile Kompaktmodus</p>
+<div class="project-footer">
+  Maestro Quiz · Public Beta · kostenlose Basisversion mit 100 Fragen. Die erweiterte Lernversion mit zusätzlichen Kategorien, Prüfungsmodus und Lernstatistik ist in Planung.
+</div>
+
+<p class="version">Version 1.7 – Public Beta</p>
 </section>
 
 
